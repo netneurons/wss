@@ -31,10 +31,10 @@ wss.on('connection', function connection(ws, req) {
   const origin = req.headers.origin;
   const { hostname } = url.parse(origin);
 
-  if (hostname !== 'comfortable-emphasized-elk.glitch.me') {
-    ws.close(1000, 'Unauthorized');
-    return;
-  }
+//  if (hostname !== 'comfortable-emphasized-elk.glitch.me') {
+  //  ws.close(1000, 'Unauthorized');
+    //return;
+ // }
   console.log('WebSocket connection opened');
 
   ws.on('message', async function incoming(message) {
