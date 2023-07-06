@@ -21,6 +21,11 @@
 
           socket.addEventListener('message', event => {
             console.log('Received message:', event.data);
+                var b = {
+                          sender: "bot",
+                          message: event.data
+                    };
+                    all.push(b);
             var inner = `<p>${event.data}</p><br>`;
             document.querySelector('.messages').innerHTML += inner;
           });
