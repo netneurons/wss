@@ -4,10 +4,15 @@
       </head>
       <body>
         <h1>WebSocket Example</h1>
-        <p>Click the button below to send a message to the server:</p>
-        <button onclick="sendMessage('Hello, server!')">Send</button>
-        <p id="message"></p>
+            <input type="text" id="message" />
+            <button onclick="send()">Send Now</button>
+        <div class="messages"></div>
         <script>
+              var all = [];
+              function send(){
+                    var message = document.querySelector('input').value;
+                    sendMessage(message);
+              };
           var socket = new WebSocket('wss://' + window.location.host, [], { pingInterval: 5000 });
 
           socket.addEventListener('open', event => {
@@ -16,7 +21,8 @@
 
           socket.addEventListener('message', event => {
             console.log('Received message:', event.data);
-            document.getElementById('message').textContent = event.data;
+            var inner = `<p>${event.data}</p><br>`;
+            document.querySelector('.messages').innerHTML += inner;
           });
 
           socket.addEventListener('close', event => {
@@ -28,8 +34,13 @@
           });
 
           function sendMessage(message) {
+                var json = {
+                          sender: "user",
+                          message: message
+                    };
+                    all.push(json);
           const encoder = new TextEncoder();
-  const encodedMessage = encoder.encode(message);
+  const encodedMessage = encoder.encode(all);
   socket.send(encodedMessage);
           }
         </script>
