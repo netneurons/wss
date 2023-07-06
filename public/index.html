@@ -46,6 +46,8 @@
                     all.push(json);
           const encoder = new TextEncoder();
   const encodedMessage = encoder.encode(all);
+            console.log(`Sending : ${message}`);
+                console.table(all);
   socket.send(encodedMessage);
           }
         </script>
