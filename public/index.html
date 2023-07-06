@@ -48,7 +48,7 @@
   const encodedMessage = encoder.encode(all);
             console.log(`Sending : ${message}`);
                 console.table(all);
-  socket.send(all);
+  socket.send(JSON.stringify(all));
           }
         </script>
       </body>
