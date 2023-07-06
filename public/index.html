@@ -1,0 +1,37 @@
+<html>
+      <head>
+        <title>WebSocket Example</title>
+      </head>
+      <body>
+        <h1>WebSocket Example</h1>
+        <p>Click the button below to send a message to the server:</p>
+        <button onclick="sendMessage('Hello, server!')">Send</button>
+        <p id="message"></p>
+        <script>
+          var socket = new WebSocket('wss://' + window.location.host, [], { pingInterval: 5000 });
+
+          socket.addEventListener('open', event => {
+            console.log('WebSocket connection opened');
+          });
+
+          socket.addEventListener('message', event => {
+            console.log('Received message:', event.data);
+            document.getElementById('message').textContent = event.data;
+          });
+
+          socket.addEventListener('close', event => {
+            console.log('WebSocket connection closed');
+          });
+
+          socket.addEventListener('error', event => {
+            console.error('WebSocket error:', event);
+          });
+
+          function sendMessage(message) {
+          const encoder = new TextEncoder();
+  const encodedMessage = encoder.encode(message);
+  socket.send(encodedMessage);
+          }
+        </script>
+      </body>
+    </html>
